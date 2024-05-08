@@ -28,13 +28,14 @@ public class ConsoleInterface {
         System.out.println("5. My flights");
         System.out.println("6. Exit");
         System.out.print("Enter your choice: ");
+        System.out.println("SLm"");
     }
 
 
     public void start() {
         Scanner scanner = new Scanner(System.in);
         int choice;
-
+s
         do {
             displayMainMenu();
             choice = scanner.nextInt();
