@@ -1,6 +1,6 @@
-package org.example.contoller;
+package az.edu.turing.contoller;
 
-import org.example.service.FlightsService;
+import az.edu.turing.service.FlightsService;
 
 public class FlightsController {
     private final FlightsService flightService;

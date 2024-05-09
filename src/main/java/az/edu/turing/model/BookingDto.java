@@ -1,10 +1,13 @@
-package org.example.model;
+package az.edu.turing.model;
 
 public class BookingDto {
-    public final String passengerName;
-    public final String passengerSurname;
-    public final long ticketId; // dataType
+    public String passengerName;
+    public String passengerSurname;
+    public long ticketId;
+    // private FlightsEntity flight;
 
+    public BookingDto( ) {
+    }
     public BookingDto(String passengerName, String passengerSurname, long ticketId) {
         this.passengerName = passengerName;
         this.passengerSurname = passengerSurname;

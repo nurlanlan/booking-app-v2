@@ -1,6 +1,6 @@
-package org.example.service;
+package az.edu.turing.service;
 
-import org.example.dao.BookingDao;
+import az.edu.turing.dao.BookingDao;
 
 public class BookingService {
     private final BookingDao bookingDAO;

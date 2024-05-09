@@ -1,20 +1,20 @@
-package org.example;
+package az.edu.turing.util;
 
-import org.example.contoller.BookingController;
-import org.example.contoller.FlightsController;
-import org.example.dao.BookingDao;
-import org.example.dao.FlightsDao;
-import org.example.exception.InvalidMenuActionException;
-import org.example.service.BookingService;
-import org.example.service.FlightsService;
+import az.edu.turing.contoller.BookingController;
+import az.edu.turing.contoller.FlightsController;
+import az.edu.turing.dao.BookingDao;
+import az.edu.turing.dao.FlightsDao;
+import az.edu.turing.exception.InvalidMenuActionException;
+import az.edu.turing.service.BookingService;
+import az.edu.turing.service.FlightsService;
 
 import java.util.Scanner;
 
-public class ConsoleInterface {
+public class ConsoleUtil {
     private final FlightsController flightController;
     private final BookingController bookingController;
 
-    public ConsoleInterface(FlightsController flightController, BookingController bookingController) {
+    public ConsoleUtil(FlightsController flightController, BookingController bookingController) {
         this.flightController = flightController;
         this.bookingController = bookingController;
     }
