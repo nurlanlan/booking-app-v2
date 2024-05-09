@@ -1,11 +1,14 @@
-package org.example.entity;
+package az.edu.turing.entity;
 
 import java.util.Objects;
 
 public final class BookingEntity {
-    private final String passengerName;
-    private final String passengerSurname;
-    private final long ticketId; // dataType
+    private String passengerName;
+    private  String passengerSurname;
+    private long ticketId;
+
+    public BookingEntity( ) {
+    }
 
     public BookingEntity(String passengerName, String passengerSurname, long ticketId) {
         this.passengerName = passengerName;

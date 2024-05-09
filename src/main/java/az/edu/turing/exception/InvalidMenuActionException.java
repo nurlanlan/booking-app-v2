@@ -1,4 +1,4 @@
-package org.example.exception;
+package az.edu.turing.exception;
 
     public class InvalidMenuActionException extends RuntimeException {
 

@@ -10,13 +10,13 @@ import java.util.function.Predicate;
 public class BookingFileDao extends BookingDao {
 
     @Override
-    public BookingEntity save(BookingEntity bookingEntity) {
-        return null;
+    public void delete(BookingEntity bookingEntity) {
+
     }
 
     @Override
-    public void delete(BookingEntity bookingEntity) {
-
+    public boolean save(Collection<BookingEntity> t) {
+        return false;
     }
 
     @Override
