@@ -6,14 +6,13 @@ import az.edu.turing.entity.FlightsEntity;
 import java.io.*;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.List;
 import java.util.Optional;
 import java.util.function.Predicate;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class FlightsFileDao extends FlightsDao {
-    //  testtt
-    //test
     private static final String RESOURCE_PATH = "src/main/java/org/example/resource";
     private static final String FLIGHTS_FILE_PATH = RESOURCE_PATH.concat("flights.bean");
     private final ObjectMapper objectMapper;
@@ -55,20 +54,19 @@ public class FlightsFileDao extends FlightsDao {
     }
 
     @Override
-    public void delete(FlightsEntity flightsEntity) {
-
-
+    public void delete(long flightId) {
+        Collection<FlightsEntity> bookings = getAll();
+        bookings.removeIf(flights -> flights.getFlightId() == flightId);
+        save(bookings);
     }
 
     @Override
     public Optional<FlightsEntity> findOneBy(Predicate<FlightsEntity> predicate) {
-        return null;
+        return getAll().stream().filter(predicate).findFirst();
     }
 
     @Override
     public Collection<FlightsEntity> findAllBy(Predicate<FlightsEntity> predicate) {
-        return null;
+        return getAll().stream().filter(predicate).toList();
     }
-
-
 }
