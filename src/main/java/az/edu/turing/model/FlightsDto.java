@@ -1,29 +1,43 @@
 package az.edu.turing.model;
 
+import az.edu.turing.entity.FlightsEntity;
+
 import java.time.LocalDateTime;
+import java.util.Objects;
 
 public class FlightsDto {
-    public LocalDateTime departureDateTime;
-    public String destination;
-    public int totalSeats;
-    public int bookedSeats;
-    public long flightId;
+    private LocalDateTime departureDateTime;
+    private String destination;
+    private String location;
+    private int seats;
+    private long flightId;
+    private static long MAX_ID = 0;
 
-    public FlightsDto( ) {
+    public FlightsDto() {
+        this.flightId = ++MAX_ID;
     }
 
-    public FlightsDto(LocalDateTime departureDateTime, String destination, int totalSeats, int bookedSeats, long flightId) {
+    public FlightsDto(LocalDateTime departureDateTime, String destination, int seats) {
+        this.flightId = ++MAX_ID;
         this.departureDateTime = departureDateTime;
         this.destination = destination;
-        this.totalSeats = totalSeats;
-        this.bookedSeats = bookedSeats;
+        this.seats = seats;
+    }
+
+    public FlightsDto(LocalDateTime departureDateTime, String destination, String location, int seats) {
+        this.flightId = ++MAX_ID;
+        this.departureDateTime = departureDateTime;
+        this.destination = destination;
+        this.location = location;
+        this.seats = seats;
+    }
+
+    public FlightsDto(long flightId, LocalDateTime departureDateTime, String destination, String location, int seats) {
         this.flightId = flightId;
-    }
-    public FlightsDto(LocalDateTime departureDateTime, String destination, int totalSeats, int bookedSeats) {
         this.departureDateTime = departureDateTime;
         this.destination = destination;
-        this.totalSeats = totalSeats;
-        this.bookedSeats = bookedSeats;
+        this.location = location;
+        this.seats = seats;
     }
 
     public LocalDateTime getDepartureDateTime() {
@@ -34,12 +48,12 @@ public class FlightsDto {
         return destination;
     }
 
-    public int getTotalSeats() {
-        return totalSeats;
+    public String getLocation() {
+        return location;
     }
 
-    public int getBookedSeats() {
-        return bookedSeats;
+    public int getSeats() {
+        return seats;
     }
 
     public long getFlightId() {
@@ -47,12 +61,25 @@ public class FlightsDto {
     }
 
     @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        FlightsDto that = (FlightsDto) o;
+        return seats == that.seats && flightId == that.flightId && Objects.equals(departureDateTime, that.departureDateTime) && Objects.equals(destination, that.destination) && Objects.equals(location, that.location);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(departureDateTime, destination, location, seats, flightId);
+    }
+
+    @Override
     public String toString() {
         return "FlightsDto{" +
                 "departureDateTime=" + departureDateTime +
                 ", destination='" + destination + '\'' +
-                ", totalSeats=" + totalSeats +
-                ", bookedSeats=" + bookedSeats +
+                ", location='" + location + '\'' +
+                ", seats=" + seats +
                 ", flightId=" + flightId +
                 '}';
     }

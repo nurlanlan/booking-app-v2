@@ -4,28 +4,29 @@ import java.time.LocalDateTime;
 import java.util.Objects;
 
 public final class FlightsEntity {
-    public LocalDateTime departureDateTime;
-    public String destination;
-    public  int totalSeats;
-    public  int bookedSeats;
-    public long flightId;
+    private LocalDateTime departureDateTime;
+    private String destination;
+    private String location;
+    private int seats;
+    private long flightId;
+    private static long MAX_ID = 0;
 
     public FlightsEntity() {
     }
 
-    public FlightsEntity(LocalDateTime departureDateTime, String destination, int totalSeats, int bookedSeats) {
+    public FlightsEntity(LocalDateTime departureDateTime, String destination, int seats) {
+        this.flightId = ++MAX_ID;
         this.departureDateTime = departureDateTime;
         this.destination = destination;
-        this.totalSeats = totalSeats;
-        this.bookedSeats = bookedSeats;
+        this.seats = seats;
     }
 
-    public FlightsEntity(LocalDateTime departureDateTime, String destination, int totalSeats, int bookedSeats, long flightId) {
+    public FlightsEntity(long flightId, LocalDateTime departureDateTime, String destination, String location, int seats) {
+        this.flightId = flightId;
         this.departureDateTime = departureDateTime;
         this.destination = destination;
-        this.totalSeats = totalSeats;
-        this.bookedSeats = bookedSeats;
-        this.flightId = flightId;
+        this.location = location;
+        this.seats = seats;
     }
 
     public LocalDateTime getDepartureDateTime() {
@@ -36,12 +37,12 @@ public final class FlightsEntity {
         return destination;
     }
 
-    public int getTotalSeats() {
-        return totalSeats;
+    public String getLocation() {
+        return location;
     }
 
-    public int getBookedSeats() {
-        return bookedSeats;
+    public int getSeats() {
+        return seats;
     }
 
     public long getFlightId() {
@@ -53,12 +54,12 @@ public final class FlightsEntity {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         FlightsEntity that = (FlightsEntity) o;
-        return totalSeats == that.totalSeats && bookedSeats == that.bookedSeats && flightId == that.flightId && Objects.equals(departureDateTime, that.departureDateTime) && Objects.equals(destination, that.destination);
+        return seats == that.seats && flightId == that.flightId && Objects.equals(departureDateTime, that.departureDateTime) && Objects.equals(destination, that.destination) && Objects.equals(location, that.location);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(departureDateTime, destination, totalSeats, bookedSeats, flightId);
+        return Objects.hash(departureDateTime, destination, location, seats, flightId);
     }
 
     @Override
@@ -66,8 +67,8 @@ public final class FlightsEntity {
         return "FlightsEntity{" +
                 "departureDateTime=" + departureDateTime +
                 ", destination='" + destination + '\'' +
-                ", totalSeats=" + totalSeats +
-                ", bookedSeats=" + bookedSeats +
+                ", location='" + location + '\'' +
+                ", seats=" + seats +
                 ", flightId=" + flightId +
                 '}';
     }
