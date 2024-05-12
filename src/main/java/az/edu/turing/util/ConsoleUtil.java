@@ -1,12 +1,17 @@
 package az.edu.turing.util;
 
+import az.edu.turing.controller.BookingController;
 import az.edu.turing.controller.FlightsController;
+import az.edu.turing.dao.BookingDao;
 import az.edu.turing.dao.FlightsDao;
+import az.edu.turing.dao.impl.BookingFileDao;
 import az.edu.turing.dao.impl.FlightsFileDao;
 import az.edu.turing.entity.FlightsEntity;
 import az.edu.turing.exception.InvalidMenuActionException;
 import az.edu.turing.model.FlightsDto;
+import az.edu.turing.service.BookingService;
 import az.edu.turing.service.FlightsService;
+import az.edu.turing.service.impl.BookingServiceImpl;
 import az.edu.turing.service.impl.FlightsServiceImpl;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -20,6 +25,10 @@ public class ConsoleUtil {
     FlightsService flightsService = new FlightsServiceImpl(flightsDao);
     FlightsController flightsController = new FlightsController(flightsService);
 
+    BookingDao bookingDao = new BookingFileDao(new ObjectMapper());
+    BookingService bookingService = new BookingServiceImpl(bookingDao);
+    BookingController bookingController = new BookingController(bookingService);
+
 
     LocalDateTime dateTime1 = LocalDateTime.of(2024, 5, 2, 10, 0);
     LocalDateTime dateTime2 = LocalDateTime.of(2024, 5, 3, 12, 0);
@@ -27,14 +36,14 @@ public class ConsoleUtil {
     FlightsEntity flight2 = new FlightsEntity(dateTime2, "Los Angeles", "Aghcabadi", 13);
 
     public void displayMainMenu() {
-        System.out.println("--- Main Menu ---");
-        System.out.println("1. Online-board");
-        System.out.println("2. Show flight info");
-        System.out.println("3. Search and book a flight");
-        System.out.println("4. Cancel booking");
-        System.out.println("5. My flights");
-        System.out.println("6. Exit");
-        System.out.print("Enter your choice: ");
+        System.out.println("---Main Menu---");
+        System.out.println("1.Online-board");
+        System.out.println("2.Show flight info");
+        System.out.println("3.Search and book a flight");
+        System.out.println("4.Cancel booking");
+        System.out.println("5.My flights");
+        System.out.println("6.Exit");
+        System.out.print("Enter your choice : ");
     }
 
     public void start() {
@@ -108,14 +117,24 @@ public class ConsoleUtil {
     }
 
     public void searchAndBookFlight() {
-
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Enter flight id:");
+        long id = scanner.nextLong();
+        flightsController.getFlightInfoByFlightId(id);
+        // bookingController.searchAndBookFlight();
     }
 
     public void cancelBooking() {
-
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Enter ticket ID:");
+        long id = scanner.nextLong();
+        bookingController.cancelBooking(id);
     }
 
     public void myFlights() {
-
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Enter full name:");
+        String fullName = scanner.nextLine();
+        bookingController.myFlights(fullName);
     }
 }
