@@ -1,9 +1,7 @@
-package az.edu.turing.contoller;
+package az.edu.turing.controller;
 
-import az.edu.turing.entity.FlightsEntity;
 import az.edu.turing.model.FlightsDto;
 import az.edu.turing.service.FlightsService;
-import az.edu.turing.service.impl.FlightsServiceImpl;
 
 import java.time.LocalDateTime;
 import java.util.*;
@@ -30,8 +28,8 @@ public class FlightsController {
         return flightService.getAllFlightsByDestination(destination);
     }
 
-    public List<FlightsDto> getAllFlightsByFlightId(long flightId) {
-        return flightService.getAllFlightsByFlightId(flightId);
+    public List<FlightsDto> getFlightInfoByFlightId(long flightId) {
+        return flightService.getFlightInfoByFlightId(flightId);
     }
 
     public Optional<FlightsDto> getOneFlightByFlightId(long flightId) {
