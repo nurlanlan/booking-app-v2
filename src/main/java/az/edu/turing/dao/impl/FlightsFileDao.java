@@ -4,16 +4,13 @@ import az.edu.turing.dao.FlightsDao;
 import az.edu.turing.entity.FlightsEntity;
 
 import java.io.*;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.function.Predicate;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class FlightsFileDao extends FlightsDao {
-    private static final String RESOURCE_PATH = "src/main/java/org/example/resource";
+    private static final String RESOURCE_PATH = "src/main/java/az/edu/turing/resource/";
     private static final String FLIGHTS_FILE_PATH = RESOURCE_PATH.concat("flights.bean");
     private final ObjectMapper objectMapper;
 
@@ -55,7 +52,7 @@ public class FlightsFileDao extends FlightsDao {
 
     @Override
     public void delete(long flightId) {
-        Collection<FlightsEntity> bookings = getAll();
+        Collection<FlightsEntity> bookings = new ArrayList<>(getAll());
         bookings.removeIf(flights -> flights.getFlightId() == flightId);
         save(bookings);
     }

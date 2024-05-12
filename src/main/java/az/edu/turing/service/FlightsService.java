@@ -19,7 +19,7 @@ public interface FlightsService {
 
     List<FlightsDto> getAllFlightsByDestination(String destination);
 
-    List<FlightsDto> getAllFlightsByFlightId(long flightId);
+    List<FlightsDto> getFlightInfoByFlightId(long flightId);
 
     Optional<FlightsDto> getOneFlightByFlightId(long flightId);
     List<FlightsDto> flightsInNext24Hours(String location,LocalDateTime dateTime);

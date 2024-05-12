@@ -47,7 +47,7 @@ public class FlightsServiceImpl implements FlightsService {
         return getAllFlights().stream().filter(flightsDto -> flightsDto.getDestination().equalsIgnoreCase(destination)).toList();
     }
     @Override
-    public List<FlightsDto> getAllFlightsByFlightId(long flightId) {
+    public List<FlightsDto> getFlightInfoByFlightId(long flightId) {
         return getAllFlights().stream().filter(flightsDto -> flightsDto.getFlightId() == flightId).toList();
     }
 
