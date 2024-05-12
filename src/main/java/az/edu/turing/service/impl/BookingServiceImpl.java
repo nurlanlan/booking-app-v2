@@ -20,7 +20,6 @@ public class BookingServiceImpl implements BookingService {
     @Override
     public void bookFlight(BookingDto bookingDto) {
         BookingEntity bookingEntity = new BookingEntity(
-                bookingDto.getTicketId(),
                 bookingDto.getFlightId(),
                 bookingDto.getPassengerNames());
         Collection<BookingEntity> bookings = bookingDao.getAll();

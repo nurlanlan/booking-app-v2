@@ -28,8 +28,8 @@ class BookingServiceImplTest {
     @Test
     void bookFlight() {
 
-        BookingDto bookingDto = new BookingDto( 1, List.of("Alice", "Bob"));
-        BookingEntity bookingEntity = new BookingEntity(1, 1, List.of("Alice", "Bob"));
+        BookingDto bookingDto = new BookingDto(1, 1, List.of("Alice", "Bob"));
+        BookingEntity bookingEntity = new BookingEntity( 1, List.of("Alice", "Bob"));
 
         bookingService.bookFlight(bookingDto);
 
@@ -42,7 +42,7 @@ class BookingServiceImplTest {
     void cancelBooking() {
 
         long ticketId = 1;
-        bookingDao.save(new ArrayList<>(List.of(new BookingEntity(1, 1, List.of("Alice", "Bob")))));
+        bookingDao.save(new ArrayList<>(List.of(new BookingEntity( 1, List.of("Alice", "Bob")))));
 
         bookingService.cancelBooking(ticketId);
 
@@ -55,8 +55,8 @@ class BookingServiceImplTest {
 
         String fullName = "Alice";
         bookingDao.save(new ArrayList<>(List.of(
-                new BookingEntity(1, 1, List.of("Alice", "Bob")),
-                new BookingEntity(2, 2, List.of("Charlie", "Alice"))
+                new BookingEntity( 1, List.of("Alice", "Bob")),
+                new BookingEntity( 2, List.of("Charlie", "Alice"))
         )));
 
         Collection<BookingEntity> result = bookingService.getBookingsByPassenger(fullName);

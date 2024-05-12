@@ -26,7 +26,7 @@ class BookingControllerTest {
     @Test
     void searchAndBookFlight() {
         // Arrange
-        BookingDto bookingDto = new BookingDto( 1, List.of("Alice", "Bob"));
+        BookingDto bookingDto = new BookingDto(1, 1, List.of("Alice", "Bob"));
 
         // Act
         bookingController.searchAndBookFlight(bookingDto);
@@ -52,8 +52,8 @@ class BookingControllerTest {
 
         String fullName = "Alice";
         Collection<BookingEntity> expectedBookings = new ArrayList<>(List.of(
-                new BookingEntity(1, 1, List.of("Alice", "Bob")),
-                new BookingEntity(2, 2, List.of("Alice", "Charlie"))
+                new BookingEntity( 1, List.of("Alice", "Bob")),
+                new BookingEntity( 2, List.of("Alice", "Charlie"))
         ));
         bookingService.bookingsByPassenger = expectedBookings;
 

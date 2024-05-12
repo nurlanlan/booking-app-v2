@@ -5,7 +5,7 @@ import java.util.Objects;
 
 public final class BookingEntity {
 
-    //private static long MAX_ID = 0;
+    private static long MAX_ID = 0;
     private long ticketId;
     private long flightId;
     private List<String> passengerNames;
@@ -13,8 +13,8 @@ public final class BookingEntity {
     public BookingEntity() {
     }
 
-    public BookingEntity(long ticketId, long flightId, List<String> passengerNames) {
-        this.ticketId = ticketId;
+    public BookingEntity( long flightId, List<String> passengerNames) {
+        this.ticketId = ++MAX_ID;
         this.flightId = flightId;
         this.passengerNames = passengerNames;
 
