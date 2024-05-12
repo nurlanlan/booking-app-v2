@@ -1,6 +1,10 @@
 package az.edu.turing.contoller;
 
+import az.edu.turing.entity.BookingEntity;
+import az.edu.turing.model.BookingDto;
 import az.edu.turing.service.BookingService;
+
+import java.util.Collection;
 
 public class BookingController {
     private final BookingService bookingService;
@@ -9,15 +13,15 @@ public class BookingController {
         this.bookingService = bookingService;
     }
 
-    public void searchAndBookFlight() {
-
+    public void searchAndBookFlight(BookingDto bookingDto) {
+        bookingService.bookFlight(bookingDto);
     }
 
-    public void cancelBooking() {
-
+    public void cancelBooking(long ticketId) {
+        bookingService.cancelBooking(ticketId);
     }
 
-    public void myFlights() {
-
+    public Collection<BookingEntity> myFlights(String fullName) {
+        return bookingService.getBookingsByPassenger(fullName);
     }
 }

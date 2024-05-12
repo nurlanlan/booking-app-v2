@@ -1,31 +1,56 @@
 package az.edu.turing.entity;
 
+import java.util.List;
 import java.util.Objects;
 
 public final class BookingEntity {
-    private String passengerName;
-    private  String passengerSurname;
-    private long ticketId;
 
-    public BookingEntity( ) {
+    //private static long MAX_ID = 0;
+    private long ticketId;
+    private long flightId;
+    private List<String> passengerNames;
+
+    public BookingEntity() {
     }
 
-    public BookingEntity(String passengerName, String passengerSurname, long ticketId) {
-        this.passengerName = passengerName;
-        this.passengerSurname = passengerSurname;
+    public BookingEntity(long ticketId, long flightId, List<String> passengerNames) {
+        this.ticketId = ticketId;
+        this.flightId = flightId;
+        this.passengerNames = passengerNames;
+
+    }
+
+    public long getTicketId() {
+        return ticketId;
+    }
+
+    public void setTicketId(long ticketId) {
         this.ticketId = ticketId;
     }
 
-    public String getPassengerName() {
-        return passengerName;
+    public long getFlightId() {
+        return flightId;
     }
 
-    public String getPassengerSurname() {
-        return passengerSurname;
+    public void setFlightId(long flightId) {
+        this.flightId = flightId;
     }
 
-    public long getFlightsId() {
-        return ticketId;
+    public List<String> getPassengerNames() {
+        return passengerNames;
+    }
+
+    public void setPassengerNames(List<String> passengerNames) {
+        this.passengerNames = passengerNames;
+    }
+
+    @Override
+    public String toString() {
+        return "BookingEntity{" +
+                "ticketId=" + ticketId +
+                ", flightId=" + flightId +
+                ", passengerNames=" + passengerNames +
+                '}';
     }
 
     @Override
@@ -33,20 +58,11 @@ public final class BookingEntity {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         BookingEntity that = (BookingEntity) o;
-        return ticketId == that.ticketId && Objects.equals(passengerName, that.passengerName) && Objects.equals(passengerSurname, that.passengerSurname);
+        return ticketId == that.ticketId && flightId == that.flightId && Objects.equals(passengerNames, that.passengerNames);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(passengerName, passengerSurname, ticketId);
-    }
-
-    @Override
-    public String toString() {
-        return "BookingEntity{" +
-                "passengerName='" + passengerName + '\'' +
-                ", passengerSurname='" + passengerSurname + '\'' +
-                ", ticketId=" + ticketId +
-                '}';
+        return Objects.hash(ticketId, flightId, passengerNames);
     }
 }
