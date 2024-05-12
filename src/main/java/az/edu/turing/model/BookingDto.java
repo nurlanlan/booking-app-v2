@@ -3,7 +3,6 @@ package az.edu.turing.model;
 import java.util.List;
 
 public class BookingDto {
-    private static long MAX_ID = 0;
     private long ticketId;
     private long flightId;
     private List<String> passengerNames;
@@ -12,7 +11,7 @@ public class BookingDto {
     }
 
     public BookingDto(long ticketId, long flightId, List<String> passengerNames) {
-        this.ticketId = ++MAX_ID;
+        this.ticketId = ticketId;
         this.flightId = flightId;
         this.passengerNames = passengerNames;
 
