@@ -1,14 +1,17 @@
 package az.edu.turing.service;
 
 import az.edu.turing.dao.BookingDao;
+import az.edu.turing.entity.BookingEntity;
+import az.edu.turing.model.BookingDto;
 
-public class BookingService {
-    private final BookingDao bookingDAO;
+import java.util.Collection;
+import java.util.function.Predicate;
 
-    public BookingService(BookingDao bookingDAO) {
+public interface BookingService {
 
-        this.bookingDAO = bookingDAO;
-    }
+    void bookFlight(BookingDto bookingDto);
 
+    void cancelBooking(long bookingId);
 
+    Collection<BookingEntity> getBookingsByPassenger(String fullName);
 }
