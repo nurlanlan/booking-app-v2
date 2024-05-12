@@ -16,25 +16,23 @@ import az.edu.turing.service.FlightsService;
 import az.edu.turing.service.impl.BookingServiceImpl;
 import az.edu.turing.service.impl.FlightsServiceImpl;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 public class ConsoleUtil {
-    FlightsDao flightsDao = new FlightsFileDao(new ObjectMapper());
+    FlightsDao flightsDao = new FlightsFileDao(new ObjectMapper().registerModule(new JavaTimeModule()));
     FlightsService flightsService = new FlightsServiceImpl(flightsDao);
     FlightsController flightsController = new FlightsController(flightsService);
 
-    BookingDao bookingDao = new BookingFileDao(new ObjectMapper());
+    BookingDao bookingDao = new BookingFileDao(new ObjectMapper().registerModule(new JavaTimeModule()));
     BookingService bookingService = new BookingServiceImpl(bookingDao);
     BookingController bookingController = new BookingController(bookingService);
 
 
-    LocalDateTime dateTime1 = LocalDateTime.of(2024, 5, 2, 10, 0);
-    LocalDateTime dateTime2 = LocalDateTime.of(2024, 5, 3, 12, 0);
-    FlightsEntity flight1 = new FlightsEntity(dateTime1, "New York", "Salyan", 20);
-    FlightsEntity flight2 = new FlightsEntity(dateTime2, "Los Angeles", "Aghcabadi", 13);
+
 
     public void displayMainMenu() {
         System.out.println("---Main Menu---");
