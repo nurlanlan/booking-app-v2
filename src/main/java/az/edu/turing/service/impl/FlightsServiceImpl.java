@@ -37,25 +37,23 @@ public class FlightsServiceImpl implements FlightsService {
         flights.stream().forEach(flightsEntity -> flightsDto.add(new FlightsDto(flightsEntity.getFlightId(), flightsEntity.getDepartureDateTime(), flightsEntity.getDestination(), flightsEntity.getLocation(), flightsEntity.getSeats())));
         return flightsDto;
     }
-
-    @Override
-    public List<FlightsDto> getAllFlightsByLocation(String location) {
-        return getAllFlights().stream().filter(flightsDto -> flightsDto.getLocation().equalsIgnoreCase(location)).toList();
-    }
     @Override
     public List<FlightsDto> getAllFlightsByDestination(String destination) {
         return getAllFlights().stream().filter(flightsDto -> flightsDto.getDestination().equalsIgnoreCase(destination)).toList();
     }
     @Override
+    public List<FlightsDto> getAllFlightsByLocation(String location) {
+        return getAllFlights().stream().filter(flightsDto -> flightsDto.getLocation().equalsIgnoreCase(location)).toList();
+    }
+    @Override
     public List<FlightsDto> getFlightInfoByFlightId(long flightId) {
+        Collection<FlightsDto> flightsEntities=getAllFlights();
         return getAllFlights().stream().filter(flightsDto -> flightsDto.getFlightId() == flightId).toList();
     }
-
     @Override
     public Optional<FlightsDto> getOneFlightByFlightId(long flightId) {
         return getAllFlights().stream().filter(flightsDto -> flightsDto.getFlightId() == flightId).findFirst();
     }
-
     @Override
     public List<FlightsDto> flightsInNext24Hours(String location, LocalDateTime dateTime) {
         LocalDateTime now = LocalDateTime.now();
@@ -67,21 +65,4 @@ public class FlightsServiceImpl implements FlightsService {
                         && flightsDto.getDepartureDateTime().isBefore(next24Hours))
                 .toList();
     }
-    //    @Override
-//    public void cancelFlight(int flightId) {
-//        Collection<FlightsEntity> flights = flightsDao.getAll();
-//        flights.removeIf(flightsEntity -> flightsEntity.getFlightId()==flightId);
-//        flightsDao.save(flights);
-//    }
-
-    //    @Override
-//    public List<FlightsDto> getAllFlightsBy(Predicate<FlightsDto> predicate) {
-//        return getAllFlights().stream().filter(predicate).toList();
-//    }
-
-//    @Override
-//    public Optional<FlightsDto> getOneFlightBy(Predicate<FlightsDto> predicate) {
-//       return getAllFlights().stream().filter(predicate).findFirst();
-//    }
-
 }

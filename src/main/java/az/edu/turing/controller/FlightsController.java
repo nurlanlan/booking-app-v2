@@ -21,17 +21,15 @@ public class FlightsController {
         return flightService.getAllFlights();
     }
 
-    public List<FlightsDto> getAllFlightsByLocation(String location) {
-        return flightService.getAllFlightsByLocation(location);
-    }
     public List<FlightsDto> getAllFlightsByDestination(String destination) {
         return flightService.getAllFlightsByDestination(destination);
     }
-
+    public List<FlightsDto> getAllFlightsByLocation(String location) {
+        return flightService.getAllFlightsByLocation(location);
+    }
     public List<FlightsDto> getFlightInfoByFlightId(long flightId) {
         return flightService.getFlightInfoByFlightId(flightId);
     }
-
     public Optional<FlightsDto> getOneFlightByFlightId(long flightId) {
         return flightService.getOneFlightByFlightId(flightId);
     }
