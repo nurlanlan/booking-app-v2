@@ -6,8 +6,10 @@ import az.edu.turing.dao.BookingDao;
 import az.edu.turing.dao.FlightsDao;
 import az.edu.turing.dao.impl.BookingFileDao;
 import az.edu.turing.dao.impl.FlightsFileDao;
+import az.edu.turing.entity.BookingEntity;
 import az.edu.turing.entity.FlightsEntity;
 import az.edu.turing.exception.InvalidMenuActionException;
+import az.edu.turing.model.BookingDto;
 import az.edu.turing.model.FlightsDto;
 import az.edu.turing.service.BookingService;
 import az.edu.turing.service.FlightsService;
@@ -17,8 +19,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
 public class ConsoleUtil {
     FlightsDao flightsDao = new FlightsFileDao(new ObjectMapper());
@@ -70,7 +71,7 @@ public class ConsoleUtil {
                         cancelBooking();
                         break;
                     case 5:
-                        myFlights();
+                        findMyFlights();
                         break;
                     case 6:
                         System.out.println("Exiting...");
@@ -118,23 +119,77 @@ public class ConsoleUtil {
 
     public void searchAndBookFlight() {
         Scanner scanner = new Scanner(System.in);
-        System.out.print("Enter flight id:");
-        long id = scanner.nextLong();
-        flightsController.getFlightInfoByFlightId(id);
-        // bookingController.searchAndBookFlight();
+        System.out.print("Enter destination: ");
+        String destination = scanner.nextLine();
+
+        List<FlightsDto> foundFlights = flightsController.getAllFlightsByDestination(destination);
+
+        if (foundFlights.isEmpty()) {
+            System.out.println("No flights found for the specified destination.");
+        } else {
+            System.out.println("Found Flights:");
+            for (FlightsDto flight : foundFlights) {
+                System.out.println(flight.getFlightId() + ". " + flight.toString());
+            }
+
+            System.out.print("Enter the ID of the flight you want to book (0 to return to the main menu): ");
+            long flightId = scanner.nextLong();
+            scanner.nextLine();
+
+            if (flightId == 0) {
+                return;
+            }
+
+            FlightsDto selectedFlight = flightsController.getOneFlightByFlightId(flightId).orElse(null);
+            if (selectedFlight == null) {
+                System.out.println("Invalid flight ID. Returning to the main menu.");
+                return;
+            }
+
+            System.out.println("Enter names and surnames of all passengers:");
+            List<String> passengerNames = new ArrayList<>();
+            System.out.print("Passenger: ");
+            String passengerName = scanner.nextLine();
+            passengerNames.add(passengerName);
+
+            BookingDto bookingDto = new BookingDto();
+            bookingDto.setFlightId(selectedFlight.getFlightId());
+            bookingDto.setPassengerNames(passengerNames);
+
+            bookingController.searchAndBookFlight(bookingDto);
+            System.out.println("Flight booked successfully!");
+        }
     }
 
     public void cancelBooking() {
         Scanner scanner = new Scanner(System.in);
-        System.out.print("Enter ticket ID:");
-        long id = scanner.nextLong();
-        bookingController.cancelBooking(id);
+        System.out.print("Enter ticket ID (7 digits):");
+        long id;
+        try {
+            id = scanner.nextLong();
+            if (String.valueOf(id).length() != 7) {
+                throw new InputMismatchException("Ticket ID must be 7 digits long.");
+            }
+            bookingController.cancelBooking(id);
+        } catch (InputMismatchException e) {
+            System.out.println("Invalid input type. Please enter a valid 7-digit long value for the ticket ID.");
+
+        }
     }
 
-    public void myFlights() {
+    public void findMyFlights() {
         Scanner scanner = new Scanner(System.in);
         System.out.print("Enter full name:");
-        String fullName = scanner.nextLine();
-        bookingController.myFlights(fullName);
+        String fullName;
+        try {
+            fullName = scanner.nextLine();
+            Collection <BookingEntity> myFlights =  bookingController.myFlights(fullName);
+            if (myFlights == null){
+                System.out.println("No flight found under your name.");
+            }
+        }catch (InputMismatchException e){
+            System.out.println("Invalid input type. Please enter a valid full name");
+        }
+
     }
 }
