@@ -1,7 +1,5 @@
 package az.edu.turing.model;
 
-import az.edu.turing.entity.FlightsEntity;
-
 import java.time.LocalDateTime;
 import java.util.Objects;
 
