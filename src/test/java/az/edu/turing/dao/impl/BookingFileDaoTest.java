@@ -29,8 +29,8 @@ class BookingFileDaoTest {
     void saveAndGetAll() throws IOException {
 
         Collection<BookingEntity> bookingsToSave = new ArrayList<>();
-        bookingsToSave.add(new BookingEntity(1, 1, List.of("Alice", "Bob")));
-        bookingsToSave.add(new BookingEntity(2, 2, List.of("Charlie", "David")));
+        bookingsToSave.add(new BookingEntity( 1, List.of("Alice", "Bob")));
+        bookingsToSave.add(new BookingEntity( 2, List.of("Charlie", "David")));
         bookingFileDao.save(bookingsToSave);
 
         Collection<BookingEntity> savedBookings = bookingFileDao.getAll();
@@ -43,8 +43,8 @@ class BookingFileDaoTest {
     void delete() throws IOException {
 
         long ticketIdToDelete = 1;
-        BookingEntity booking1 = new BookingEntity(1, 1, List.of("Alice", "Bob"));
-        BookingEntity booking2 = new BookingEntity(2, 1, List.of("Charlie", "David"));
+        BookingEntity booking1 = new BookingEntity( 1, List.of("Alice", "Bob"));
+        BookingEntity booking2 = new BookingEntity( 1, List.of("Charlie", "David"));
         Collection<BookingEntity> initialBookings = new ArrayList<>(List.of(booking1, booking2));
         bookingFileDao.save(initialBookings);
 
@@ -60,7 +60,7 @@ class BookingFileDaoTest {
     void findOneBy() throws IOException {
 
         long flightIdToFind = 1;
-        BookingEntity bookingToFind = new BookingEntity(1, flightIdToFind, List.of("Alice", "Bob"));
+        BookingEntity bookingToFind = new BookingEntity( flightIdToFind, List.of("Alice", "Bob"));
         Predicate<BookingEntity> predicate = booking -> booking.getFlightId() == flightIdToFind;
         Collection<BookingEntity> bookings = new ArrayList<>(List.of(bookingToFind));
         bookingFileDao.save(bookings);
@@ -75,9 +75,9 @@ class BookingFileDaoTest {
     void findAllBy() throws IOException {
 
         long flightIdToFind = 1;
-        BookingEntity booking1 = new BookingEntity(1, flightIdToFind, List.of("Alice", "Bob"));
-        BookingEntity booking2 = new BookingEntity(2, flightIdToFind, List.of("Charlie", "David"));
-        BookingEntity booking3 = new BookingEntity(3, flightIdToFind + 1, List.of("Emma", "Frank"));
+        BookingEntity booking1 = new BookingEntity( flightIdToFind, List.of("Alice", "Bob"));
+        BookingEntity booking2 = new BookingEntity( flightIdToFind, List.of("Charlie", "David"));
+        BookingEntity booking3 = new BookingEntity( flightIdToFind + 1, List.of("Emma", "Frank"));
         Collection<BookingEntity> bookings = new ArrayList<>(List.of(booking1, booking2));
         Predicate<BookingEntity> predicate = booking -> booking.getFlightId() == flightIdToFind;
         bookingFileDao.save(bookings);
