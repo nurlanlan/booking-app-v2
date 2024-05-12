@@ -17,7 +17,7 @@ public class BookingController {
         bookingService.bookFlight(bookingDto);
     }
 
-    public void cancelBooking(long ticketId) {
+    public  void cancelBooking(long ticketId) {
         bookingService.cancelBooking(ticketId);
     }
 
