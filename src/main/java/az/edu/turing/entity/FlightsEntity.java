@@ -21,7 +21,7 @@ public final class FlightsEntity {
         this.seats = seats;
     }
 
-    public FlightsEntity(LocalDateTime departureDateTime, String destination, String location, int seats) {
+    public FlightsEntity( LocalDateTime departureDateTime, String destination, String location, int seats) {
         this.flightId = ++MAX_ID;
         this.departureDateTime = departureDateTime;
         this.destination = destination;
@@ -49,6 +49,25 @@ public final class FlightsEntity {
         return flightId;
     }
 
+    public void setDepartureDateTime(LocalDateTime departureDateTime) {
+        this.departureDateTime = departureDateTime;
+    }
+
+    public void setDestination(String destination) {
+        this.destination = destination;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
+    }
+
+    public void setSeats(int seats) {
+        this.seats = seats;
+    }
+
+    public void setFlightId(long flightId) {
+        this.flightId = flightId;
+    }
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

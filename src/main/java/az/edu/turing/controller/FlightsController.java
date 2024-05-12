@@ -38,5 +38,4 @@ public class FlightsController {
     public List<FlightsDto> getOnlineBoard(String location, LocalDateTime dateTime) {
         return flightService.flightsInNext24Hours(location, dateTime);
     }
-
 }
