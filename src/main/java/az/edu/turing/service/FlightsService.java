@@ -12,19 +12,10 @@ import java.util.function.Predicate;
 
 public interface FlightsService {
     void createFlights(FlightsDto flightsDto);
-
     Collection<FlightsDto> getAllFlights();
-
-    List<FlightsDto> getAllFlightsByLocation(String location);
-
     List<FlightsDto> getAllFlightsByDestination(String destination);
-
+    List<FlightsDto> getAllFlightsByLocation(String location);
     List<FlightsDto> getFlightInfoByFlightId(long flightId);
-
     Optional<FlightsDto> getOneFlightByFlightId(long flightId);
     List<FlightsDto> flightsInNext24Hours(String location,LocalDateTime dateTime);
-
-    //List<FlightsDto> getAllFlightsBy(Predicate<FlightsDto> predicate);
-    // Optional<FlightsDto> getOneFlightBy(Predicate<FlightsDto> predicate);
-    //  void cancelFlight(int flightId);
 }
