@@ -21,8 +21,8 @@ public final class FlightsEntity {
         this.seats = seats;
     }
 
-    public FlightsEntity(long flightId, LocalDateTime departureDateTime, String destination, String location, int seats) {
-        this.flightId = flightId;
+    public FlightsEntity(LocalDateTime departureDateTime, String destination, String location, int seats) {
+        this.flightId = ++MAX_ID;
         this.departureDateTime = departureDateTime;
         this.destination = destination;
         this.location = location;
