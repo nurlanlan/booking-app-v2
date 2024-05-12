@@ -26,7 +26,7 @@ class BookingControllerTest {
     @Test
     void searchAndBookFlight() {
         // Arrange
-        BookingDto bookingDto = new BookingDto(1, 1, List.of("Alice", "Bob"));
+        BookingDto bookingDto = new BookingDto( 1, List.of("Alice", "Bob"));
 
         // Act
         bookingController.searchAndBookFlight(bookingDto);

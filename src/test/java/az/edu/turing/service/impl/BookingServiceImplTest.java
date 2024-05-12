@@ -28,7 +28,7 @@ class BookingServiceImplTest {
     @Test
     void bookFlight() {
 
-        BookingDto bookingDto = new BookingDto(1, 1, List.of("Alice", "Bob"));
+        BookingDto bookingDto = new BookingDto( 1, List.of("Alice", "Bob"));
         BookingEntity bookingEntity = new BookingEntity(1, 1, List.of("Alice", "Bob"));
 
         bookingService.bookFlight(bookingDto);

@@ -11,7 +11,7 @@ public class BookingDto {
     public BookingDto() {
     }
 
-    public BookingDto(long ticketId, long flightId, List<String> passengerNames) {
+    public BookingDto( long flightId, List<String> passengerNames) {
         this.ticketId = ++MAX_ID;
         this.flightId = flightId;
         this.passengerNames = passengerNames;
