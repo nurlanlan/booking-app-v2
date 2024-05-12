@@ -93,28 +93,38 @@ public class ConsoleUtil {
         String location = scanner.nextLine();
         LocalDateTime dateTime = LocalDateTime.now();
         List<FlightsDto> flights = flightsController.getOnlineBoard(location, dateTime);
-        for (FlightsDto flight : flights) {
-            System.out.println(flight.getFlightId() + " - " + flight.getDestination() + " - " +
-                    flight.getDepartureDateTime().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")));
+        if (flights != null) {
+            for (FlightsDto flight : flights) {
+                System.out.println(flight.getFlightId() + " - " + flight.getDestination() + " - " +
+                        flight.getDepartureDateTime().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")));
+            }
+        } else {
+            System.out.println("Flight not found!");
         }
     }
 
     public void showFlightInfo() {
         Scanner scanner = new Scanner(System.in);
         System.out.print("Enter flight ID: ");
-        long id = scanner.nextLong();
-        List<FlightsDto> flights = flightsController.getFlightInfoByFlightId(id);
-        System.out.println("===== Flight Info =====");
-        if (flights != null) {
-            for (FlightsDto f : flights) {
-                System.out.println(f.getDepartureDateTime().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")) + " - "
-                        + f.getDestination() + " - "
-                        + f.getSeats()
-                );
+        try {
+            long id = scanner.nextLong();
+            List<FlightsDto> flights = flightsController.getFlightInfoByFlightId(id);
+            if (flights != null) {
+                for (FlightsDto f : flights) {
+                    System.out.println(f.getDepartureDateTime().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")) + " - "
+                            + f.getDestination() + " - "
+                            + f.getSeats()
+                    );
+                }
+            } else {
+                System.out.println("Flight not found!");
             }
-        } else {
-            System.out.println("Flight not found!");
+        }catch (InputMismatchException e){
+            System.out.println("Enter valid flight Id");
         }
+
+        System.out.println("===== Flight Info =====");
+
     }
 
     public void searchAndBookFlight() {
@@ -183,11 +193,11 @@ public class ConsoleUtil {
         String fullName;
         try {
             fullName = scanner.nextLine();
-            Collection <BookingEntity> myFlights =  bookingController.myFlights(fullName);
-            if (myFlights == null){
+            Collection<BookingEntity> myFlights = bookingController.myFlights(fullName);
+            if (myFlights == null) {
                 System.out.println("No flight found under your name.");
             }
-        }catch (InputMismatchException e){
+        } catch (InputMismatchException e) {
             System.out.println("Invalid input type. Please enter a valid full name");
         }
 
