@@ -49,5 +49,6 @@ public class ReservationApp {
         bookingController.searchAndBookFlight(bookingDto1);
         ConsoleUtil consoleUtil = new ConsoleUtil();
         consoleUtil.start();
+
     }
 }
