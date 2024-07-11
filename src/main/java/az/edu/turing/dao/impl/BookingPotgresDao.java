@@ -1,5 +1,6 @@
 package az.edu.turing.dao.impl;
 
+import az.edu.turing.dao.BookingDao;
 import az.edu.turing.dao.DAO;
 import az.edu.turing.entity.BookingEntity;
 
@@ -9,7 +10,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.function.Predicate;
 
-public class BookingPotgresDao implements DAO {
+public class BookingPotgresDao extends BookingDao {
 
 
     private static final String getBookingByIdSql = "SELECT * FROM booking WHERE id = ?;";
@@ -22,14 +23,46 @@ public class BookingPotgresDao implements DAO {
 
 
     @Override
-    public boolean save(Collection t) {
+    public boolean save(Collection<BookingEntity> bookings) {
+        try (Connection conn = DriverManager.getConnection(
+                "jdbc:postgresql://localhost:5432/postgres",
+                "postgres",
+                "postgres");
+             PreparedStatement query = conn.prepareStatement(createBookingSql, Statement.RETURN_GENERATED_KEYS)) {
+            query.setLong(1, bookings.getFlightId());
+            query.executeUpdate();
+            ResultSet generatedKeys = query.getGeneratedKeys();
+            if (generatedKeys.next()) {
+                long bookingId = generatedKeys.getLong(1);
+                for (String passengerName : bookings.getPassengerNames()) {
+                    PreparedStatement queryPassenger = conn.prepareStatement(createPassengerNameSql, Statement.RETURN_GENERATED_KEYS);
+                    queryPassenger.setString(1, passengerName);
+                    queryPassenger.executeUpdate();
+                    ResultSet passengerKeys = queryPassenger.getGeneratedKeys();
+                    if (passengerKeys.next()) {
+                        long passengerId = passengerKeys.getLong(1);
+                        PreparedStatement queryBookingPassenger = conn.prepareStatement(createBookingByPassengerIdSql);
+                        queryBookingPassenger.setLong(1, bookingId);
+                        queryBookingPassenger.setLong(2, passengerId);
+                        queryBookingPassenger.executeUpdate();
+                    }
+                }
+                PreparedStatement queryFlight = conn.prepareStatement("UPDATE flight SET free_seats = free_seats - (SELECT COUNT(*) FROM bookings_passengers WHERE booking_id = ?) WHERE id = ?;");
+                queryFlight.setLong(1, bookingId);
+                queryFlight.setLong(2, bookings.getFlightId());
+                queryFlight.executeUpdate(); // NECE ELEYEK KI BU COLLECTION QEBUL ETSE DE OZELLIKLERDEN ISTIFADE OLUNAN BILSIN
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
         return false;
     }
 
     @Override
-    public Collection getAll() {
+    public Collection<BookingEntity> getAll() {
         return List.of();
     }
+
 
     @Override
     public void delete(long flightId) {
