@@ -1,7 +1,9 @@
 package az.edu.turing.dao.impl;
 
 import az.edu.turing.dao.DAO;
+import az.edu.turing.entity.BookingEntity;
 
+import java.sql.*;
 import java.util.Collection;
 import java.util.List;
 import java.util.Optional;

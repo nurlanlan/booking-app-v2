@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.function.Predicate;
 
+
 public interface DAO<T> {
     boolean save(Collection<T> t);
 
