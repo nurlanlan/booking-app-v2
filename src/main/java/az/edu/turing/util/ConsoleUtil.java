@@ -7,7 +7,6 @@ import az.edu.turing.dao.FlightsDao;
 import az.edu.turing.dao.impl.BookingFileDao;
 import az.edu.turing.dao.impl.FlightsFileDao;
 import az.edu.turing.entity.BookingEntity;
-import az.edu.turing.entity.FlightsEntity;
 import az.edu.turing.exception.InvalidMenuActionException;
 import az.edu.turing.model.BookingDto;
 import az.edu.turing.model.FlightsDto;

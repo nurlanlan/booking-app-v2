@@ -66,5 +66,6 @@ public class FlightsServiceImpl implements FlightsService {
                         && flightsDto.getDepartureDateTime().isAfter(now)
                         && flightsDto.getDepartureDateTime().isBefore(next24Hours))
                 .toList();
+
     }
 }

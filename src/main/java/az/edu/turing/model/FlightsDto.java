@@ -10,14 +10,6 @@ public class FlightsDto {
     private int seats;
     private long flightId;
 
-    public FlightsDto() {
-    }
-    public FlightsDto(long flightId, LocalDateTime departureDateTime, String destination, int seats) {
-        this.flightId =flightId;
-        this.departureDateTime = departureDateTime;
-        this.destination = destination;
-        this.seats = seats;
-    }
     public FlightsDto(long flightId,LocalDateTime departureDateTime, String destination, String location, int seats) {
         this.flightId = flightId;
         this.departureDateTime = departureDateTime;
